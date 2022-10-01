@@ -1,0 +1,15 @@
+#spring.thymeleaf.cache=false
+#spring.thymeleaf.enabled=true 
+#spring.thymeleaf.prefix=classpath:/templates/
+#spring.thymeleaf.suffix=.html
+#spring.application.name=Oauth project
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: a943caf7084f9beb43a1
+            clientSecret: 08b26112591b17ee94bece915190d61d9aca90a6
+
