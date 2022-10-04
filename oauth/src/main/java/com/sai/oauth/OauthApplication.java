@@ -13,9 +13,10 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+
 
 
 @SuppressWarnings("deprecation")
@@ -25,7 +26,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class OauthApplication extends WebSecurityConfigurerAdapter{
 	
 	
-
 
 
 
@@ -62,12 +62,13 @@ public class OauthApplication extends WebSecurityConfigurerAdapter{
 		.exceptionHandling(e -> e
 				.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
 				)
-		.oauth2Login();
+		.oauth2Login()
+		.and()
+		.logout(l -> l
+	            .logoutSuccessUrl("/").permitAll()
+	        )
 
-
-		http.logout(l -> l.logoutSuccessUrl("/").permitAll());
-
-		http.csrf(c -> c.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
+		.csrf(c -> c.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
 
 	}
 

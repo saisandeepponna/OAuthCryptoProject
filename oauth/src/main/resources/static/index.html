@@ -16,24 +16,43 @@
 <body>
 
 
-<div class="container">
+
         
-       <div class="container unauthenticated">  
-  <a class="nav-link" href="/oauth2/authorization/github">Login</a>
+       <div class="container unauthenticated" >  
+  <a class="nav-link" href="/oauth2/authorization/github">Login with Github</a>
   </div>
   
   
 
 
-<div class="container authenticated">
+<div class="container authenticated"id="hi">
   Logged in as: <span id="user"></span>
-  <br>
- 
+
+</div>
+
+<div class="container authenticated" id="hid">
     <button onClick="logout()" class="btn btn-primary">Logout</button>
-  
-</div>
- 
-</div>
+  </div>
+
+
+<script>
+var condition = false;
+$('#hi').toggle(condition);
+$('#hid').toggle(condition);
+</script>
+
+<script>
+var logout = function() {
+    $.post("/logout", function() {
+        $("#user").html('');
+        $(".unauthenticated").show();
+        $(".authenticated").hide();
+    })
+    return true;
+}
+</script>
+
+
 <script type="text/javascript">
     $.get("/user", function(data) {
         $("#user").html(data.name);
@@ -41,6 +60,7 @@
         $(".authenticated").show()
     });
 </script>
+
 <script>
 
 var logout = function() {
